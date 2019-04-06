@@ -2,7 +2,6 @@
 import sys
 import re
 import os
-from compiler import Compiler
 
 # ===================================================
 
