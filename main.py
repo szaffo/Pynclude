@@ -8,13 +8,13 @@ CWD = os.getcwd()
 FILENAME = "main.py"
 FILEPATH = CWD + "/" + FILENAME
 # ===================================================
-RE_INCLUDE = r"^\s*# ?pynclude\s*([A-z\./aáoóöőuúüű0-9]+\.py)\s*$"
-RE_SETDIR = r"^\s*# ?setdir\s*([A-z\./aáoóöőuúüű0-9]+(/)?)\s*$"
-RE_DEFINE = r"^\s*# ?define\s*([A-zaáoóöőuúüűÁŐÓÚŰÖ0-9]+)\s*$"
-RE_IFDEFINED = r"^\s*# ?ifdef\s*([A-zaáoóöőuúüűÁŐÓÚŰÖ0-9]+)\s*$"
-RE_IFNDEFINED = r"^\s*# ?ifndef\s*([A-zaáoóöőuúüűÁŐÓÚŰÖ0-9]+)\s*$"
-RE_ELSE = r"^\s*# ?else\s*$"
-RE_COMMENT = r"^\s*#.*$"
+RE_INCLUDE = re.compile(r"^\s*# ?pynclude\s*([A-z\./aáoóöőuúüű0-9]+\.py)\s*$")
+RE_SETDIR = re.compile(r"^\s*# ?setdir\s*(?P<path>[A-z\./aáoóöőuúüű0-9]+(/)?)\s*$")
+RE_DEFINE = re.compile(r"^\s*# ?define\s*([A-zaáoóöőuúüű0-9]+)\s*$")
+RE_IFDEFINED = re.compile(r"^\s*# ?ifdef\s*([A-zaáoóöőuúüű0-9]+)\s*$")
+RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*([A-zaáoóöőuúüű0-9]+)\s*$")
+RE_ELSE = re.compile(r"^\s*# ?else\s*$")
+RE_COMMENT = re.compile(r"^\s*#.*$")
 # ===================================================
 
 def checkFile(filename):
