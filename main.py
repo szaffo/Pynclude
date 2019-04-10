@@ -17,10 +17,10 @@ RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)
 RE_ELSE = re.compile(r"^\s*# ?else\s*$")
 RE_COMMENT = re.compile(r"^\s*#.*$")
 # ===================================================
-G_output = []
-G_settings = {
+SETTINGS = {
     "recursive": True,
-    "keep_comments": True
+    "keep_comments": True,
+    "output_file": "builded.py"
 }
 # ===================================================
 
