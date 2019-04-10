@@ -19,6 +19,16 @@ RE_COMMENT = r"^\s*#.*$"
 
 # ===================================================
 
+def checkFile(filename):
+	try:
+		open(filename, "r")
+		return True
+	except Exception:
+		return False
+
+# ===================================================
+
 if __name__ == '__main__':
 	print("Pynclude v2.0")
+	print(checkFile(FILEPATH))
 
