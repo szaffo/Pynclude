@@ -24,8 +24,9 @@ SETTINGS = {
     "keep_comments": True,
     "output_file": "builded.py",
     "input_file": FILENAME,
-    "input_file_path": FILEPATH
+    "input_file_path": FILEPATH,
     "cwd": CWD,
+    "inlude_directory": CWD,
     "verbose": True
 }
 # ===================================================
