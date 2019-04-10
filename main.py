@@ -30,7 +30,22 @@ class Input(object):
     def __init__(self, filename):
         log(filename, "Reading to buffer")
 
-        with open(filename, "r")
+        with open(filename, "r") as file:
+            self.lines = file.read().strip().split("\n")
+
+        self.currentIndex = 0
+
+    def first(self):
+        self.currentIndex = 0
+
+    def next(self):
+        self.currentIndex += 1
+
+    def current(self):
+        return self.lines[self.currentIndex]
+
+    def end(self):
+        return (self.currentIndex == (len(self.lines) - 1))
 
 # ===================================================
 
