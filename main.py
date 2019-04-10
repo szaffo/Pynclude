@@ -88,15 +88,29 @@ def log(file, text):
 # ===================================================
 
 
-def compile(filename):
+def compile(filename, settings):
     log(filename, "Compiling...")
-    inp = Input(filename)
+    file = Input(filename)
+
+    while (not file.end()):
+        # print(file.current())
+        line = file.current()
+
+        if RE_INCLUDE.match(line):
+            data = RE_INCLUDE.match(line).group("data")
+            compile(data)
+
+        file.next()
 
 # ===================================================
 
 if __name__ == '__main__':
     print("Pynclude v2.0")
+    output = Output()
+
     if checkFile(FILEPATH):
-        compile(FILEPATH)
+        compile(FILEPATH, SETTINGS)
     else:
         log(FILEPATH, "Not found")
+
+    output.save()
