@@ -90,12 +90,13 @@ def checkFile(filename):
 
 
 def log(file, text):
-    print("[{}] {}".format(file, text))
+    if SETTINGS["verbose"]:
+        print("[{}] {}".format(file, text))
 # ===================================================
 
 
 def compile(filename, settings):
-    log(filename, "Compiling...")
+    log(filename, "Starting compiling...")
     file = Input(filename)
 
     while (not file.end()):
@@ -103,15 +104,17 @@ def compile(filename, settings):
         line = file.current()
 
         if RE_INCLUDE.match(line):
-            data = RE_INCLUDE.match(line).group("data")
-            compile(data)
+            data = CWD + RE_INCLUDE.match(line).group("key")
+            compile(data, settings)
+
+        elif RE_SETDIR.match(line):
 
         file.next()
 
 # ===================================================
 
 if __name__ == '__main__':
-    print("Pynclude v2.0")
+    log("Pynclude v2.0", "")
     output = Output()
 
     if checkFile(FILEPATH):
