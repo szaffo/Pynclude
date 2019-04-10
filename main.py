@@ -46,7 +46,7 @@ class Input(object):
         return self.lines[self.currentIndex]
 
     def end(self):
-        return (self.currentIndex == (len(self.lines) - 1))
+        return (self.currentIndex == (len(self.lines)))
 
 # ===================================================
 
