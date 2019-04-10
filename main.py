@@ -34,6 +34,7 @@ class Input(object):
             self.lines = file.read().strip().split("\n")
 
         self.currentIndex = 0
+        log(filename, "Ready to process")
 
     def first(self):
         self.currentIndex = 0
