@@ -51,6 +51,28 @@ class Input(object):
 # ===================================================
 
 
+class Output(object):
+
+    def __init__(self):
+        self.lines = []
+
+    def add(self, lines):
+        if isinstance(lines, str):
+            lines = [lines]
+
+        [self.lines.append(x for x in lines)]
+
+    def save(self):
+        filename = SETTINGS["output_file"]
+        log(filename, "Saving builded code")
+        with open(CWD + filename, "w") as file:
+            file.write("\n".join(self.lines))
+
+        log(filename, "Saved")
+
+# ===================================================
+
+
 def checkFile(filename):
     try:
         open(filename, "r")
