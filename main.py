@@ -4,6 +4,10 @@ import re
 import os
 
 # ===================================================
+CWD = os.getcwd()
+FILENAME = "main.py"
+FILEPATH = CWD + "/" + FILENAME
+# ===================================================
 
 RE_INCLUDE = r"^\s*# ?pynclude\s*([A-z\./aáoóöőuúüű0-9]+\.py)\s*$"
 RE_SETDIR = r"^\s*# ?setdir\s*([A-z\./aáoóöőuúüű0-9]+(/)?)\s*$"
