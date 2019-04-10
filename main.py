@@ -4,23 +4,29 @@ import re
 import os
 
 # ===================================================
+# You can edit this section
 CWD = os.getcwd() + "/"
-FILENAME = "main.py"
+FILENAME = "testMain.py"
 FILEPATH = CWD + FILENAME
 INCLUDE_DIR = CWD
 # ===================================================
 RE_INCLUDE = re.compile(r"^\s*# ?pynclude\s*(?P<key>[A-z\./aáoóöőuúüű0-9]+\.py)\s*$")
 RE_SETDIR = re.compile(r"^\s*# ?setdir\s*(?P<key>[A-z\./aáoóöőuúüű0-9]+(/)?)\s*$")
-RE_DEFINE = re.compile(r"^\s*# ?define\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
-RE_IFDEFINED = re.compile(r"^\s*# ?ifdef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
-RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
-RE_ELSE = re.compile(r"^\s*# ?else\s*$")
-RE_COMMENT = re.compile(r"^\s*#.*$")
+# RE_DEFINE = re.compile(r"^\s*# ?define\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
+# RE_IFDEFINED = re.compile(r"^\s*# ?ifdef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
+# RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
+# RE_ELSE = re.compile(r"^\s*# ?else\s*$")
+# RE_COMMENT = re.compile(r"^\s*#.*$")
 # ===================================================
+# Do not edit settings here
 SETTINGS = {
     "recursive": True,
     "keep_comments": True,
-    "output_file": "builded.py"
+    "output_file": "builded.py",
+    "input_file": FILENAME,
+    "input_file_path": FILEPATH
+    "cwd": CWD,
+    "verbose": True
 }
 # ===================================================
 
