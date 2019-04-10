@@ -63,9 +63,9 @@ class Output(object):
         [self.lines.append(x for x in lines)]
 
     def save(self):
-        filename = SETTINGS["output_file"]
+        filename = CWD + SETTINGS["output_file"]
         log(filename, "Saving builded code")
-        with open(CWD + filename, "w") as file:
+        with open(filename, "w") as file:
             file.write("\n".join(self.lines))
 
         log(filename, "Saved")
