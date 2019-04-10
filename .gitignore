@@ -1,3 +1,5 @@
 pynclude.sublime-project
 pynclude.sublime-workspace
 __pycache__/
+builded.py
+test.py
