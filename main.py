@@ -111,6 +111,7 @@ def compile(filename, settings):
             value = RE_SETDIR.match(line).group("value")
             settings["inlude_directory"] += value
 
+        output.add(line)
         file.next()
 
 # ===================================================
