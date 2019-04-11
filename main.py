@@ -6,7 +6,7 @@ import os
 # ===================================================
 # You can edit this section
 CWD = os.getcwd() + "/"
-FILENAME = "testMain.py"
+FILENAME = "main.py"
 FILEPATH = CWD + FILENAME
 INCLUDE_DIR = CWD
 # ===================================================
@@ -38,7 +38,8 @@ class Input(object):
         log(filename, "Reading to buffer")
 
         with open(filename, "r") as file:
-            self.lines = file.read().strip().split("\n")
+            self.lines = file.read().split("\n")
+            # self.lines = file.read().strip().split("\n")
 
         self.currentIndex = 0
         log(filename, "Ready to process")
@@ -101,18 +102,30 @@ def compile(filename, settings):
     file = Input(filename)
 
     while (not file.end()):
+        addLine = True
         line = file.current()
 
+        # pyclude
         if RE_INCLUDE.match(line):
-            data = CWD + RE_INCLUDE.match(line).group("key")
-            compile(data, settings)
+            data = settings["inlude_directory"] + RE_INCLUDE.match(line).group("key")
 
+            if settings["recursive"]:
+                compile(data, settings)
+
+            addLine = False
+
+        # setdir
         elif RE_SETDIR.match(line):
             value = RE_SETDIR.match(line).group("value")
             settings["inlude_directory"] += value
 
-        output.add(line)
+            addLine = False
+
+        if addLine:
+            output.add(line)
         file.next()
+
+    log(filename, "Compiled")
 
 # ===================================================
 
@@ -122,7 +135,6 @@ if __name__ == '__main__':
 
     if checkFile(FILEPATH):
         compile(FILEPATH, SETTINGS)
+        output.save()
     else:
         log(FILEPATH, "Not found")
-
-    output.save()
