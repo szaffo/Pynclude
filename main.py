@@ -67,13 +67,13 @@ class Output(object):
         if isinstance(lines, str):
             lines = [lines]
 
-        [self.lines.append(x for x in lines)]
+        [self.lines.append(x) for x in lines]
 
     def save(self):
         filename = CWD + SETTINGS["output_file"]
         log(filename, "Saving builded code")
         with open(filename, "w") as file:
-            file.write("\n".join(self.lines))
+            file.write("\n".join(list(self.lines)))
 
         log(filename, "Saved")
 
@@ -101,7 +101,6 @@ def compile(filename, settings):
     file = Input(filename)
 
     while (not file.end()):
-        # print(file.current())
         line = file.current()
 
         if RE_INCLUDE.match(line):
