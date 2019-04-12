@@ -9,7 +9,7 @@ settings = {
     "keep_comments": True,
     "input_file": "main.py",
     "output_file": "builded.py",
-    "inlude_directory": cwd,
+    "include_directory": cwd,
     "cwd": cwd,
     "verbose": True
 }
