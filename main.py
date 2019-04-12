@@ -26,7 +26,7 @@ SETTINGS = {
     "input_file": FILENAME,
     "input_file_path": FILEPATH,
     "cwd": CWD,
-    "inlude_directory": CWD,
+    "include_directory": CWD,
     "verbose": True
 }
 # ===================================================
@@ -107,7 +107,7 @@ def compile(filename, settings):
 
         # pyclude
         if RE_INCLUDE.match(line):
-            data = settings["inlude_directory"] + RE_INCLUDE.match(line).group("key")
+            data = settings["include_directory"] + RE_INCLUDE.match(line).group("key")
 
             if settings["recursive"]:
                 compile(data, settings)
@@ -117,7 +117,7 @@ def compile(filename, settings):
         # setdir
         elif RE_SETDIR.match(line):
             value = RE_SETDIR.match(line).group("value")
-            settings["inlude_directory"] += value
+            settings["include_directory"] += value
 
             addLine = False
 
