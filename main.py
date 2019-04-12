@@ -99,6 +99,7 @@ def log(file, text):
 
 def compile(filename, settings):
     log(filename, "Starting compiling...")
+    settings = settings.copy()
     file = Input(filename)
 
     while (not file.end()):
