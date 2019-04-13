@@ -12,6 +12,7 @@ INCLUDE_DIR = CWD
 # ===================================================
 RE_INCLUDE = re.compile(r"^\s*# ?pynclude\s*(?P<key>[A-z\./aáoóöőuúüű0-9]+\.py)\s*$")
 RE_SETDIR = re.compile(r"^\s*# ?setdir\s*(?P<key>[A-z\./aáoóöőuúüű0-9]+(/)?)\s*$")
+RE_CLEAR_INCLUDE = re.compile(r"^\s*# ?clearIncludeDir\s*$")
 # RE_DEFINE = re.compile(r"^\s*# ?define\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_IFDEFINED = re.compile(r"^\s*# ?ifdef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
@@ -27,6 +28,7 @@ SETTINGS = {
     "input_file_path": FILEPATH,
     "cwd": CWD,
     "include_directory": CWD,
+    "previous_include_directory": CWD,
     "verbose": True
 }
 # ===================================================
@@ -147,8 +149,13 @@ def compile(filename, settings):
         # setdir
         elif RE_SETDIR.match(line):
             value = RE_SETDIR.match(line).group("key")
+            settings["previous_include_directory"] = settings["include_directory"]
             settings["include_directory"] += value
+            addLine = False
 
+        # clearIncludeDir
+        elif RE_CLEAR_INCLUDE.match(line):
+            settings["include_directory"] = settings["previous_include_directory"]
             addLine = False
 
         if addLine:
