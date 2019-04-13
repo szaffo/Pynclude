@@ -35,12 +35,15 @@ class Input(object):
 
     def __init__(self, filename):
         log(filename, "Reading to buffer")
-
-        with open(filename, "r") as file:
-            self.lines = file.read().split("\n")
-            # self.lines = file.read().strip().split("\n")
-
         self.currentIndex = 0
+
+        try:
+            with open(filename, "r") as file:
+                self.lines = file.read().split("\n")
+        except:
+            log(filename, "Can't open file", unlockVerbose=True)
+            self.lines = []
+            return
         log(filename, "Ready to process")
 
     def first(self):
