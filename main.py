@@ -17,7 +17,7 @@ RE_CLEAR_INCLUDE = re.compile(r"^\s*# ?clearIncludeDir\s*$")
 # RE_IFDEFINED = re.compile(r"^\s*# ?ifdef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_ELSE = re.compile(r"^\s*# ?else\s*$")
-# RE_COMMENT = re.compile(r"^\s*#.*$")
+RE_COMMENT = re.compile(r"^\s*#.*$")
 # ===================================================
 # Do not edit settings here
 SETTINGS = {
@@ -157,6 +157,10 @@ def compile(filename, settings):
         elif RE_CLEAR_INCLUDE.match(line):
             settings["include_directory"] = settings["previous_include_directory"]
             addLine = False
+
+        # comment
+        elif RE_COMMENT.match(line):
+            addLine = settings["keep_comments"]
 
         if addLine:
             output.add(line)
