@@ -116,7 +116,7 @@ def compile(filename, settings):
 
         # setdir
         elif RE_SETDIR.match(line):
-            value = RE_SETDIR.match(line).group("value")
+            value = RE_SETDIR.match(line).group("key")
             settings["include_directory"] += value
 
             addLine = False
