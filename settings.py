@@ -10,7 +10,6 @@ settings = {
     "input_file": "main.py",
     "output_file": "builded.py",
     "include_directory": cwd,
-    "cwd": cwd,
     "verbose": True
 }
 
