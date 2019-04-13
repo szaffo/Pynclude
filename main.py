@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import re
 import os
+import json
 
 # ===================================================
 # You can edit this section
@@ -93,9 +94,35 @@ def checkFile(filename):
 # ===================================================
 
 
-def log(file, text):
-    if SETTINGS["verbose"]:
+def log(file, text, unlockVerbose=False):
+    if SETTINGS["verbose"] or unlockVerbose:
         print("[{}] {}".format(file, text))
+# ===================================================
+
+
+def applySettings(settings):
+    data = None
+    settingsFilename = None
+    try:
+        with open(CWD + "settings.pynclude", "r") as file:
+            data = json.load(file)
+            settingsFilename = CWD + "settings.pynclude"
+    except:
+        log(CWD + "settings.pynclude", "Not found")
+        try:
+            with open("settings.pynclude", "r") as file:
+                data = json.load(file)
+                settingsFilename = "settings.pynclude"
+        except:
+            log("settings.pynclude", "Not found")
+
+    if (not data is None):
+        for key in data.keys():
+            settings[key] = data[key]
+
+        log(settingsFilename, "Applied")
+
+
 # ===================================================
 
 
@@ -129,11 +156,11 @@ def compile(filename, settings):
         file.next()
 
     log(filename, "Compiled")
-
 # ===================================================
 
 if __name__ == '__main__':
     log("Pynclude v2.0", "")
+    applySettings(SETTINGS)
     output = Output()
 
     if checkFile(FILEPATH):
