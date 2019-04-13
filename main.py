@@ -18,6 +18,7 @@ RE_CLEAR_INCLUDE = re.compile(r"^\s*# ?clearIncludeDir\s*$")
 # RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_ELSE = re.compile(r"^\s*# ?else\s*$")
 RE_COMMENT = re.compile(r"^\s*#.*$")
+RE_KEEP_COMMENTS = re.compile(r"^\s*# ?keepComments (?P<key>False|True)\s*$")
 # ===================================================
 # Do not edit settings here
 SETTINGS = {
@@ -161,6 +162,11 @@ def compile(filename, settings):
         # comment
         elif RE_COMMENT.match(line):
             addLine = settings["keep_comments"]
+
+        # keepComments
+        elif RE_KEEP_COMMENTS.match(line):
+            settings["keep_comments"] = (RE_KEEP_COMMENTS.match(line).group("key") == "True")
+            addLine = False
 
         if addLine:
             output.add(line)
