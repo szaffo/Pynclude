@@ -13,6 +13,7 @@ INCLUDE_DIR = CWD
 RE_INCLUDE = re.compile(r"^\s*# ?pynclude\s*(?P<key>[A-z\./aáoóöőuúüű0-9]+\.py)\s*$")
 RE_SETDIR = re.compile(r"^\s*# ?setdir\s*(?P<key>[A-z\./aáoóöőuúüű0-9]+(/)?)\s*$")
 RE_CLEAR_INCLUDE = re.compile(r"^\s*# ?clearIncludeDir\s*$")
+RE_GUARD = re.compile(r"^\s*# ?pyncludeGuard\s*(?P<key>[A-z\./aáoóöőuúüű0-9]+(/)?)\s*$")
 # RE_DEFINE = re.compile(r"^\s*# ?define\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_IFDEFINED = re.compile(r"^\s*# ?ifdef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
@@ -116,7 +117,7 @@ class Collector(object):
             return True
 
     def has(self, item):
-        return (item in slef.items)
+        return (item in self.items)
 # ===================================================
 
 
@@ -201,6 +202,18 @@ def compile(filename, settings):
             settings["keep_comments"] = (RE_KEEP_COMMENTS.match(line).group("key") == "True")
             addLine = False
 
+        # pyncludeGuard XXX
+        elif RE_GUARD.match(line):
+            guard = RE_GUARD.match(line).group("key")
+            addLine = False
+
+            # Check if was included
+            if guards.has(guard):
+                includeAble = False
+                log(filename, "File was included once and it's protected by a guard (" + guard + ")", unlockVerbose=True)
+            else:
+                guards.add(guard)
+
         # comment
         # This should be after all command
         elif RE_COMMENT.match(line):
@@ -218,7 +231,7 @@ def compile(filename, settings):
 # ===================================================
 
 if __name__ == '__main__':
-    log("Pynclude v2.1.2", "")
+    log("Pynclude v2.2", "")
     applySettings(SETTINGS)
 
     output = Output()
