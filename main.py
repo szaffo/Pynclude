@@ -65,7 +65,7 @@ class Input(object):
 # ===================================================
 
 
-class Output(object):
+class OutputLayer(object):
 
     def __init__(self):
         self.lines = []
@@ -76,13 +76,28 @@ class Output(object):
 
         [self.lines.append(x) for x in lines]
 
-    def save(self):
+    def getLines(self):
+        return self.lines.copy()
+
+    def _save(self):
         filename = CWD + SETTINGS["output_file"]
         log(filename, "Saving builded code")
         with open(filename, "w") as file:
             file.write("\n".join(list(self.lines)))
 
         log(filename, "Saved")
+
+# ===================================================
+
+
+class Output(OutputLayer):
+
+    def addLayer(self, layer):
+        lines = layer.getLines()
+        [self.add(line) for line in lines]
+
+    def save(self):
+        super(Output, self)._save()
 
 # ===================================================
 
@@ -131,9 +146,13 @@ def applySettings(settings):
 
 def compile(filename, settings):
     log(filename, "Starting compiling...")
+
     settings = settings.copy()
     settings["original_include_directory"] = settings["include_directory"]
+
     file = Input(filename)
+    layer = OutputLayer()
+    includeAble = True
 
     while (not file.end()):
         addLine = True
@@ -170,8 +189,12 @@ def compile(filename, settings):
             addLine = settings["keep_comments"]
 
         if addLine:
-            output.add(line)
+            layer.add(line)
+
         file.next()
+
+    if includeAble:
+        output.addLayer(layer)
 
     log(filename, "Compiled")
 # ===================================================
