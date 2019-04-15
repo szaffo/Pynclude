@@ -140,18 +140,23 @@ def log(file, text, unlockVerbose=False):
 def applySettings(settings):
     data = None
     settingsFilename = None
-    try:
+
+    if (checkFile(CWD + "settings.pynclude")):
         with open(CWD + "settings.pynclude", "r") as file:
             data = json.load(file)
-            settingsFilename = CWD + "settings.pynclude"
-    except:
+
+        settingsFilename = CWD + "settings.pynclude"
+
+    elif (checkFile("settings.pynclude")):
         log(CWD + "settings.pynclude", "Not found")
-        try:
-            with open("settings.pynclude", "r") as file:
-                data = json.load(file)
-                settingsFilename = "settings.pynclude"
-        except:
-            log("settings.pynclude", "Not found")
+        with open("settings.pynclude", "r") as file:
+            data = json.load(file)
+
+        settingsFilename = "settings.pynclude"
+
+    else:
+        log(CWD + "settings.pynclude", "Not found")
+        log("./settings.pynclude", "Not found")
 
     if (not data is None):
         for key in data.keys():
@@ -231,7 +236,7 @@ def compile(filename, settings):
 # ===================================================
 
 if __name__ == '__main__':
-    log("Pynclude v2.2", "")
+    log("Pynclude v2.2.1", "")
     applySettings(SETTINGS)
 
     output = Output()
