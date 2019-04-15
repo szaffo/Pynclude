@@ -159,14 +159,15 @@ def compile(filename, settings):
             settings["include_directory"] = settings["previous_include_directory"]
             addLine = False
 
-        # comment
-        elif RE_COMMENT.match(line):
-            addLine = settings["keep_comments"]
-
         # keepComments
         elif RE_KEEP_COMMENTS.match(line):
             settings["keep_comments"] = (RE_KEEP_COMMENTS.match(line).group("key") == "True")
             addLine = False
+
+        # comment
+        # This should be after all command
+        elif RE_COMMENT.match(line):
+            addLine = settings["keep_comments"]
 
         if addLine:
             output.add(line)
@@ -176,7 +177,7 @@ def compile(filename, settings):
 # ===================================================
 
 if __name__ == '__main__':
-    log("Pynclude v2.0", "")
+    log("Pynclude v2.1.1", "")
     applySettings(SETTINGS)
     output = Output()
 
