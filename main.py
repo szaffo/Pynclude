@@ -102,6 +102,24 @@ class Output(OutputLayer):
 # ===================================================
 
 
+class Collector(object):
+
+    def __init__(self, type):
+        self.type = type
+        self.items = []
+
+    def add(self, item):
+        if (not isinstance(item, self.type)):
+            return False
+        else:
+            self.items = self.items + [item]
+            return True
+
+    def has(self, item):
+        return (item in slef.items)
+# ===================================================
+
+
 def checkFile(filename):
     try:
         open(filename, "r")
@@ -202,7 +220,9 @@ def compile(filename, settings):
 if __name__ == '__main__':
     log("Pynclude v2.1.2", "")
     applySettings(SETTINGS)
+
     output = Output()
+    guards = Collector(str)
 
     if checkFile(FILEPATH):
         compile(FILEPATH, SETTINGS)
