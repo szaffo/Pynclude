@@ -29,7 +29,7 @@ SETTINGS = {
     "input_file_path": FILEPATH,
     "cwd": CWD,
     "include_directory": CWD,
-    "previous_include_directory": CWD,
+    # "original_include_directory": CWD, # No need to declare it here
     "verbose": True
 }
 # ===================================================
@@ -132,6 +132,7 @@ def applySettings(settings):
 def compile(filename, settings):
     log(filename, "Starting compiling...")
     settings = settings.copy()
+    settings["original_include_directory"] = settings["include_directory"]
     file = Input(filename)
 
     while (not file.end()):
@@ -150,13 +151,12 @@ def compile(filename, settings):
         # setdir
         elif RE_SETDIR.match(line):
             value = RE_SETDIR.match(line).group("key")
-            settings["previous_include_directory"] = settings["include_directory"]
             settings["include_directory"] += value
             addLine = False
 
         # clearIncludeDir
         elif RE_CLEAR_INCLUDE.match(line):
-            settings["include_directory"] = settings["previous_include_directory"]
+            settings["include_directory"] = settings["original_include_directory"]
             addLine = False
 
         # keepComments
@@ -177,7 +177,7 @@ def compile(filename, settings):
 # ===================================================
 
 if __name__ == '__main__':
-    log("Pynclude v2.1.1", "")
+    log("Pynclude v2.1.2", "")
     applySettings(SETTINGS)
     output = Output()
 
