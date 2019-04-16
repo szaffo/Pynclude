@@ -176,7 +176,7 @@ def compile(filename, settings):
     layer = OutputLayer()
     includeAble = True
 
-    while (not file.end()):
+    while ((not file.end()) and includeAble):
         addLine = True
         line = file.current()
 
@@ -234,7 +234,7 @@ def compile(filename, settings):
 # ===================================================
 
 if __name__ == '__main__':
-    log("Pynclude v2.2.2", "")
+    log("Pynclude v2.2.3", "")
     applySettings(SETTINGS)
 
     output = Output()
