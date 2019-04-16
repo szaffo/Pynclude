@@ -62,7 +62,6 @@ class Input(object):
 
     def end(self):
         return (self.currentIndex == (len(self.lines)))
-
 # ===================================================
 
 
@@ -87,7 +86,6 @@ class OutputLayer(object):
             file.write("\n".join(list(self.lines)))
 
         log(filename, "Saved")
-
 # ===================================================
 
 
@@ -99,7 +97,6 @@ class Output(OutputLayer):
 
     def save(self):
         super(Output, self)._save()
-
 # ===================================================
 
 
@@ -127,7 +124,6 @@ def checkFile(filename):
         return True
     except Exception:
         return False
-
 # ===================================================
 
 
@@ -163,8 +159,6 @@ def applySettings(settings):
             settings[key] = data[key]
 
         log(settingsFilename, "Applied")
-
-
 # ===================================================
 
 
