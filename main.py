@@ -72,12 +72,20 @@ class OutputLayer(object):
         self.collector = Collector(str)
 
     def add(self, lines):
-        lines = [lines]
+        if (not isinstance(lines, list)):
+            lines = [lines]
 
         [self.collector.add(x) for x in lines]
 
     def getLines(self):
         return self.collector.getAll()
+
+    def discard(self):
+        self.__init__()
+        return self
+
+    def addLayer(self, layer):
+        self.add(layer.getLines())
 
     def _save(self):
         filename = CWD + SETTINGS["output_file"]
@@ -185,7 +193,7 @@ def compile(filename, settings):
             data = settings["include_directory"] + RE_INCLUDE.match(line).group("key")
 
             if settings["recursive"]:
-                compile(data, settings)
+                layer.addLayer(compile(data, settings))
 
             addLine = False
 
@@ -228,7 +236,10 @@ def compile(filename, settings):
         file.next()
 
     if includeAble:
-        output.addLayer(layer)
+        # output.addLayer(layer)
+        return layer
+    else:
+        return layer.discard()
 
     log(filename, "Compiled")
 # ===================================================
@@ -242,7 +253,7 @@ if __name__ == '__main__':
     mainFile = SETTINGS["input_file_path"]
 
     if checkFile(mainFile):
-        compile(mainFile, SETTINGS)
+        output.addLayer(compile(mainFile, SETTINGS))
         output.save()
     else:
         log(mainFile, "Not found")
