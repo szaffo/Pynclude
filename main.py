@@ -68,22 +68,22 @@ class Input(object):
 class OutputLayer(object):
 
     def __init__(self):
-        self.lines = []
+        # self.lines = []
+        self.collector = Collector(str)
 
     def add(self, lines):
-        if isinstance(lines, str):
-            lines = [lines]
+        lines = [lines]
 
-        [self.lines.append(x) for x in lines]
+        [self.collector.add(x) for x in lines]
 
     def getLines(self):
-        return self.lines.copy()
+        return self.collector.getAll()
 
     def _save(self):
         filename = CWD + SETTINGS["output_file"]
         log(filename, "Saving builded code")
         with open(filename, "w") as file:
-            file.write("\n".join(list(self.lines)))
+            file.write("\n".join(list(self.collector.getAll())))
 
         log(filename, "Saved")
 # ===================================================
@@ -115,6 +115,9 @@ class Collector(object):
 
     def has(self, item):
         return (item in self.items)
+
+    def getAll(self):
+        return self.items.copy()
 # ===================================================
 
 
