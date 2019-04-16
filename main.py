@@ -245,7 +245,7 @@ def compile(filename, settings):
 # ===================================================
 
 if __name__ == '__main__':
-    log("Pynclude v2.2.4", "")
+    log("Pynclude v2.2.5", "")
     applySettings(SETTINGS)
 
     output = Output()
