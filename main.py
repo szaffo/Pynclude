@@ -18,7 +18,7 @@ RE_GUARD = re.compile(r"^\s*# ?pyncludeGuard\s*(?P<key>[A-z\./aáoóöőuúüű0
 # RE_IFDEFINED = re.compile(r"^\s*# ?ifdef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_IFNDEFINED = re.compile(r"^\s*# ?ifndef\s*(?P<key>[A-zaáoóöőuúüű0-9]+)\s*$")
 # RE_ELSE = re.compile(r"^\s*# ?else\s*$")
-RE_COMMENT = re.compile(r"^\s*#.*$")
+RE_COMMENT = re.compile(r"^\s*#[^!]")
 RE_KEEP_COMMENTS = re.compile(r"^\s*# ?keepComments (?P<key>False|True)\s*$")
 # ===================================================
 # Do not edit settings here
@@ -245,7 +245,7 @@ def compile(filename, settings):
 # ===================================================
 
 if __name__ == '__main__':
-    log("Pynclude v2.2.5", "")
+    log("Pynclude v2.2.6", "")
     applySettings(SETTINGS)
 
     output = Output()
