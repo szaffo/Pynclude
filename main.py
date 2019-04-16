@@ -88,7 +88,7 @@ class OutputLayer(object):
         self.add(layer.getLines())
 
     def _save(self):
-        filename = CWD + SETTINGS["output_file"]
+        filename = SETTINGS["cwd"] + SETTINGS["output_file"]
         log(filename, "Saving builded code")
         with open(filename, "w") as file:
             file.write("\n".join(list(self.collector.getAll())))
@@ -149,21 +149,21 @@ def applySettings(settings):
     data = None
     settingsFilename = None
 
-    if (checkFile(CWD + "settings.pynclude")):
-        with open(CWD + "settings.pynclude", "r") as file:
+    if (checkFile(settings["cwd"] + "settings.pynclude")):
+        with open(settings["cwd"] + "settings.pynclude", "r") as file:
             data = json.load(file)
 
-        settingsFilename = CWD + "settings.pynclude"
+        settingsFilename = settings["cwd"] + "settings.pynclude"
 
     elif (checkFile("settings.pynclude")):
-        log(CWD + "settings.pynclude", "Not found")
+        log(settings["cwd"] + "settings.pynclude", "Not found")
         with open("settings.pynclude", "r") as file:
             data = json.load(file)
 
         settingsFilename = "settings.pynclude"
 
     else:
-        log(CWD + "settings.pynclude", "Not found")
+        log(settings["cwd"] + "settings.pynclude", "Not found")
         log("./settings.pynclude", "Not found")
 
     if (not data is None):
