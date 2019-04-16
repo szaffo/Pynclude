@@ -8,6 +8,7 @@ settings = {
     "recursive": True,
     "keep_comments": True,
     "input_file": "main.py",
+    "input_file_path": cwd + "main.py",
     "output_file": "builded.py",
     "include_directory": cwd,
     "verbose": True

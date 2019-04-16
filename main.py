@@ -234,14 +234,15 @@ def compile(filename, settings):
 # ===================================================
 
 if __name__ == '__main__':
-    log("Pynclude v2.2.3", "")
+    log("Pynclude v2.2.4", "")
     applySettings(SETTINGS)
 
     output = Output()
     guards = Collector(str)
+    mainFile = SETTINGS["input_file_path"]
 
-    if checkFile(FILEPATH):
-        compile(FILEPATH, SETTINGS)
+    if checkFile(mainFile):
+        compile(mainFile, SETTINGS)
         output.save()
     else:
-        log(FILEPATH, "Not found")
+        log(mainFile, "Not found")
