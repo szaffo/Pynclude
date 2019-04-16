@@ -108,6 +108,7 @@ class Collector(object):
 
     def add(self, item):
         if (not isinstance(item, self.type)):
+            raise TypeError("Can't collect {} with Collector[{}]".format(type(item), self.type))
             return False
         else:
             self.items = self.items + [item]
